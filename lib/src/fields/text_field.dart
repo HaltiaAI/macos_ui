@@ -1301,12 +1301,17 @@ class _MacosTextFieldState extends State<MacosTextField>
       color: enabled ? decorationColor : disabledColor,
     );
 
+    final Color defaultFocusBorderColor = themeData.brightness.isDark
+        ? const Color.fromRGBO(26, 169, 255, 0.3)
+        : const Color.fromRGBO(0, 103, 244, 0.25);
+
+    final Color? focusedBorderColor =
+        widget.focusedDecoration?.border?.top.color;
+
     final BoxDecoration? focusedDecoration = widget.focusedDecoration?.copyWith(
       border: Border.all(
         width: 3.0,
-        color: themeData.brightness.isDark
-            ? const Color.fromRGBO(26, 169, 255, 0.3)
-            : const Color.fromRGBO(0, 103, 244, 0.25),
+        color: focusedBorderColor ?? defaultFocusBorderColor,
       ),
     );
 
