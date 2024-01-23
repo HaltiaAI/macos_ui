@@ -110,8 +110,8 @@ class _TextFieldSelectionGestureDetectorBuilder
     // widgets in front of it, tapping the clear button will also trigger
     // this handler. If the clear button widget recognizes the up event,
     // then do not handle it.
-    if (_state._clearGlobalKey.currentContext != null) {
-      final RenderBox renderBox = _state._clearGlobalKey.currentContext!
+    if (_state._suffixGlobalKey.currentContext != null) {
+      final RenderBox renderBox = _state._suffixGlobalKey.currentContext!
           .findRenderObject()! as RenderBox;
       final Offset localOffset =
           renderBox.globalToLocal(details.globalPosition);
@@ -880,7 +880,7 @@ class MacosTextField extends StatefulWidget {
 class _MacosTextFieldState extends State<MacosTextField>
     with RestorationMixin, AutomaticKeepAliveClientMixin<MacosTextField>
     implements TextSelectionGestureDetectorBuilderDelegate {
-  final GlobalKey _clearGlobalKey = GlobalKey();
+  final GlobalKey _suffixGlobalKey = GlobalKey();
 
   RestorableTextEditingController? _controller;
   TextEditingController get _effectiveController =>
@@ -1106,13 +1106,16 @@ class _MacosTextFieldState extends State<MacosTextField>
             ),
             // First add the explicit suffix if the suffix visibility mode matches.
             if (_showSuffixWidget(text))
-              widget.suffix!
+              KeyedSubtree(
+                key: _suffixGlobalKey,
+                child: widget.suffix!,
+              )
             // Otherwise, try to show a clear button if its visibility mode matches.
             else if (_showClearButton(text))
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
-                  key: _clearGlobalKey,
+                  key: _suffixGlobalKey,
                   onTap: widget.enabled ?? true
                       ? () {
                           // Special handle onChanged for ClearButton
