@@ -1252,10 +1252,7 @@ class _MacosTextFieldState extends State<MacosTextField>
       ),
     );
 
-    final placeholderStyle = textStyle.merge(enabled
-        ? resolvedPlaceholderStyle
-        : resolvedPlaceholderStyle!
-            .copyWith(color: resolvedPlaceholderStyle.color!.withOpacity(0.2)));
+    final placeholderStyle = textStyle.merge(resolvedPlaceholderStyle);
 
     final Brightness keyboardAppearance =
         widget.keyboardAppearance ?? MacosTheme.brightnessOf(context);
