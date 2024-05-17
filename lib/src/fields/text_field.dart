@@ -1309,7 +1309,8 @@ class _MacosTextFieldState extends State<MacosTextField>
         widget.focusedDecoration?.border?.top.color;
 
     final BoxDecoration? focusedDecoration = widget.focusedDecoration?.copyWith(
-      border: widget.focusedDecoration?.border?.top.copyWith(
+      border: Border.all(
+        width: widget.focusedDecoration?.border?.top.width ?? 0,
         color: focusedBorderColor ?? defaultFocusBorderColor,
       ),
     );
